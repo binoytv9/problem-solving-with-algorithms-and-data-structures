@@ -1,5 +1,6 @@
-"""	Implement the remaining operations defined in the UnorderedList ADT (append, index,
-pop, insert)	"""
+"""	Implement a slice method for the UnorderedList class. It should take two parameters,
+start and stop, and return a copy of the list starting at the start position and going up to
+but not including the stop position	"""
 
 
 class Node:
@@ -71,7 +72,10 @@ class UnorderedList:
 
 	def append(self,item):
 		tmp = Node(item)
-		self.lastNode.set_next(tmp)
+		if self.lastNode == None:
+			self.head = tmp
+		else:
+			self.lastNode.set_next(tmp)
 		self.lastNode = tmp
 		self.length += 1
 
@@ -138,6 +142,22 @@ class UnorderedList:
 		self.length -= 1
 		return data
 
+	def slice(self,start=0,stop=None):
+		index = 0
+		startCopy = False
+		current = self.head
+		newlist = UnorderedList()
+		while current != None:
+			if index == start:
+				startCopy = True
+			if index == stop:
+				break
+			if startCopy:
+				newlist.append(current.get_data())
+			index += 1
+			current = current.get_next()
+		return newlist
+
 
 if __name__ == '__main__':
 	mylist = UnorderedList()
@@ -147,11 +167,5 @@ if __name__ == '__main__':
 	mylist.add(93)
 	mylist.add(26)
 	mylist.add(54)
-	print mylist.size()
 	print mylist
-	mylist.insert(20,100)
-	print mylist.size()
-	print mylist
-	mylist.pop(20)
-	print mylist.size()
-	print mylist
+	print mylist.slice(1,100)
