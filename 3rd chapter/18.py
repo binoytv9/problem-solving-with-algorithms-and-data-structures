@@ -52,7 +52,7 @@ class UnorderedList:
 		current = self.head
 		prev_node = None
 		if current == None:
-			print 'linked list is empty!!!' %item
+			print 'linked list is empty!!!'
 			return
 		while current != None:
 			if current.get_data() == item:
