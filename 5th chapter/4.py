@@ -61,8 +61,8 @@ class HashTable:
 				l += 1
 		return l
 
-	def __contains__(self,data):
-		return data in self.data
+	def __contains__(self,key):
+		return key in self.slots
 
 
 if __name__ == '__main__':
@@ -77,4 +77,4 @@ if __name__ == '__main__':
 	h[55]="pig"
 	h[20]="chicken"
 	print 'do' in h
-	print 'cow' in h
+	print 31 in h
