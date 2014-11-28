@@ -1,15 +1,21 @@
-"""	Binary Heap Implementation	"""
+"""	Create a binary heap with a limited heap size. In other words, the heap only keeps track
+of the n most important items. If the heap grows in size to more than n items the least
+important item is dropped.	"""
 
 
 class BinHeap:
-	def __init__(self):
+	def __init__(self,max_heap_size = None):
 		self.heap_list = [0]
 		self.current_size = 0
+		self.heap_size = max_heap_size
 
 	def insert(self, k):
+		print 'inserting ',k
 		self.heap_list.append(k)
 		self.current_size = self.current_size + 1
 		self.perc_up(self.current_size)
+		if self.heap_list:
+			self.drop_least_items()
 
 	def perc_up(self, i):
 		while i // 2 > 0:
@@ -53,15 +59,23 @@ class BinHeap:
 			self.perc_down(i)
 			i = i - 1
 
+	def drop_least_items(self):
+		while self.current_size > self.heap_size:
+			index_max = self.heap_list.index(max(self.heap_list))
+			ret_val = self.heap_list[index_max]
+			self.heap_list[index_max] = self.heap_list[self.current_size]
+			self.heap_list.pop()
+			self.current_size = self.current_size - 1
+			self.perc_down(index_max)
+			print 'deleted ',ret_val
+		print bh.heap_list
+
 
 if __name__ == '__main__':
-	bh = BinHeap()
+	bh = BinHeap(3)	# maxm heap_size = 3
 	bh.insert(5)
 	bh.insert(7)
 	bh.insert(3)
+	bh.insert(1)
 	bh.insert(11)
-	print bh.heap_list
-	print(bh.del_min())
-	print(bh.del_min())
-	print(bh.del_min())
-	print(bh.del_min())
+	bh.insert(10)
